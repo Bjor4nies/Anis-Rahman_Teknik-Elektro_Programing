@@ -1,0 +1,34 @@
+// NAMA		: Anis Rahman
+// NRP		: 5022221049
+// Jurusan	: Teknik Eektro
+#include <iostream>
+#include <cmath>
+
+// Dapatkan vtan dari kecepatan awal dengan loss
+double vtan(double v){
+    return v<=5 ? v+1 : v>5 && v<=15 ? v+3 : v>15 && v<= 25 ? v+5:v;
+}
+
+int main() {
+    int vtanguide;
+    double v,vo;
+    double smallest_delta = 100.;
+    scanf("%d",&vtanguide);
+    vtanguide = (vtanguide > 30) ? 30 : vtanguide;
+    
+    int x_step = 1; // Evaluasi dari jarak pengukuran 1
+    while(x_step <= 62){ // Jarak paling maksimum yg bisa dicapai robot adalah 62m
+        v = sqrt(x_step*10);
+        // Cari kecepatan tangensial yang paling dekat dengan input
+        double abs_d = fabs(vtanguide - vtan(v));
+        if(smallest_delta > abs_d){
+            smallest_delta = abs_d;
+            vo = v;
+        }
+        x_step++;
+    }
+    
+      printf("%d %.4f",int(pow(vo,2.)/10),vtan(vo));
+    return 0;
+}
+
